@@ -20,8 +20,11 @@ def sign_in():
 
     us = UserService()
 
+    # sign in by using username and password
     res = us.sign_in(username, password)
 
-    m.status = res
+    if res.status:
+        m.status = True
+        m.user_id = res.id
 
     return m.json()

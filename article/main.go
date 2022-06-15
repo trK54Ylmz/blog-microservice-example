@@ -4,12 +4,12 @@ import (
 	"log"
 	"net"
 
-	"github.com/trk54ylmz/blog-ms/proto/user"
+	"github.com/trk54ylmz/blog-ms/proto/article"
 	"google.golang.org/grpc"
 )
 
 func main() {
-	conn, err := net.Listen("tcp", ":8001")
+	conn, err := net.Listen("tcp", ":8002")
 
 	if err != nil {
 		log.Fatalf("net dial failed %s", err)
@@ -19,9 +19,9 @@ func main() {
 
 	server := grpc.NewServer()
 
-	user.RegisterUserServiceServer(server, new(UserService))
+	article.RegisterArticleServiceServer(server, new(ArticleService))
 
-	log.Println("user service starting at 8081")
+	log.Println("article service starting at 8082")
 
 	// Start grpc server
 	err = server.Serve(conn)

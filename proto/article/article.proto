@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+package article;
+
+option go_package = "github.com/trk54ylmz/blog-ms/proto/article";
+
+import "google/protobuf/empty.proto";
+
+message Article {
+    string id = 1;
+    string title = 2;
+    string description = 3;
+    int32 user_id = 4;
+}
+
+message ArticleCreateResponse {
+    bool status = 1;
+}
+
+message ArticleListResponse {
+    bool status = 1;
+    repeated Article articles = 2;
+}
+
+service ArticleService {
+    rpc Create(Article) returns (ArticleCreateResponse);
+
+    rpc List(google.protobuf.Empty) returns (ArticleListResponse);
+}
+

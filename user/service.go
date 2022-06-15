@@ -15,6 +15,8 @@ func (u *UserService) SignIn(ctx context.Context, r *user.SignInRequest) (*user.
 
 	if r.Username == "test" && r.Password == "test" {
 		rs.Status = true
+
+		rs.Id = 1
 	} else {
 		rs.Status = false
 	}

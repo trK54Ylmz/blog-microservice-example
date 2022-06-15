@@ -1,9 +1,9 @@
 from .base import RpcBase
-from proto import UserServiceStub, SignInRequest
+from proto import UserServiceStub, SignInRequest, SignInResponse
 
 
 class UserService(RpcBase):
-    def sign_in(self, username, password) -> bool:
+    def sign_in(self, username, password) -> SignInResponse:
         """
         Sign in to user account by using username and password
 
@@ -17,6 +17,4 @@ class UserService(RpcBase):
         stub = UserServiceStub(self.channel)
 
         # send request to grpc server
-        res = stub.SignIn(r)
-
-        return res.status
+        return stub.SignIn(r)

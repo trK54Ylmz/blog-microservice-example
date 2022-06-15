@@ -5,14 +5,15 @@ package user;
 option go_package = "github.com/trk54ylmz/blog-ms/proto/user";
 
 message SignInRequest {
-    string username = 1;
-    string password = 2;
+  string username = 1;
+  string password = 2;
 }
 
 message SignInResponse {
-    bool status = 1;
+  bool status = 1;
+  int32 id = 2;
 }
 
 service UserService {
-    rpc SignIn (SignInRequest) returns (SignInResponse);
+    rpc SignIn(SignInRequest) returns (SignInResponse);
 }

@@ -17,11 +17,23 @@ func main() {
 		return
 	}
 
+	// Create grpc service
 	server := grpc.NewServer()
 
-	article.RegisterArticleServiceServer(server, new(ArticleService))
+	// Create new article service
+	a, err := NewArticleService()
 
-	log.Println("article service starting at 8082")
+	// Close database connection when stop
+	defer a.Cancel()
+
+	if err != nil {
+		log.Fatalf("article service error %s", err)
+	}
+
+	// Register article service implementation
+	article.RegisterArticleServiceServer(server, a)
+
+	log.Println("article service starting at 8002")
 
 	// Start grpc server
 	err = server.Serve(conn)

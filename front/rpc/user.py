@@ -1,8 +1,13 @@
-from .base import RpcBase
+import grpc
 from proto import UserServiceStub, SignInRequest, SignInResponse
 
 
-class UserService(RpcBase):
+class UserService:
+    def __init__(self):
+        channel = grpc.insecure_channel('localhost:8001')
+
+        self.stub = UserServiceStub(channel)
+
     def sign_in(self, username, password) -> SignInResponse:
         """
         Sign in to user account by using username and password
@@ -14,7 +19,5 @@ class UserService(RpcBase):
         """
         r = SignInRequest(username=username, password=password)
 
-        stub = UserServiceStub(self.channel)
-
         # send request to grpc server
-        return stub.SignIn(r)
+        return self.stub.SignIn(r)

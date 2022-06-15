@@ -21,7 +21,7 @@ func main() {
 
 	user.RegisterUserServiceServer(server, new(UserService))
 
-	log.Println("user service starting at 8081")
+	log.Println("user service starting at 8001")
 
 	// Start grpc server
 	err = server.Serve(conn)

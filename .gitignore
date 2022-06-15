@@ -5,3 +5,7 @@ vendor/
 article/article
 user/user
 proto/*/*.pb.go
+front/proto/*/*_pb2*.py
+
+*.pyc
+__pycache__/

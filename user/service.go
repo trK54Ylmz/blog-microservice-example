@@ -9,6 +9,7 @@ import (
 type UserService struct {
 }
 
+// SignIn will returns if user exists or not
 func (u *UserService) SignIn(ctx context.Context, r *user.SignInRequest) (*user.SignInResponse, error) {
 	rs := new(user.SignInResponse)
 

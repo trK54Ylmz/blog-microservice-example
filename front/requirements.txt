@@ -1,0 +1,5 @@
+attrdict==2.0.1
+email-validator==1.2.1
+flask==2.1.2
+flask-wtf==1.0.1
+grpcio-tools==1.46.3

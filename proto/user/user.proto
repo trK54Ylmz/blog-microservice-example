@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package user;
+
+option go_package = "github.com/trk54ylmz/blog-ms/proto/user";
+
+message SignInRequest {
+    string username = 1;
+    string password = 2;
+}
+
+message SignInResponse {
+    bool status = 1;
+}
+
+service UserService {
+    rpc SignIn (SignInRequest) returns (SignInResponse);
+}

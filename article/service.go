@@ -58,6 +58,11 @@ func NewArticleService() (*ArticleService, error) {
 func (a *ArticleService) Create(ctx context.Context, c *article.Article) (*article.ArticleCreateResponse, error) {
 	r := new(article.ArticleCreateResponse)
 
+	// Generate new object id, if given id is invalid
+	if len(c.Id) != 24 {
+		c.Id = primitive.NewObjectID().Hex()
+	}
+
 	// Generate object id from raw value
 	id, err := primitive.ObjectIDFromHex(c.Id)
 

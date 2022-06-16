@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package user;
 
-option go_package = "github.com/trk54ylmz/blog-ms/proto/user";
+option go_package = "github.com/trk54ylmz/blog-microservice-example/proto/user";
 
 message SignInRequest {
   string username = 1;

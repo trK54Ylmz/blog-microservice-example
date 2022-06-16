@@ -4,7 +4,7 @@ import (
 	"context"
 	"time"
 
-	"github.com/trk54ylmz/blog-ms/proto/article"
+	"github.com/trk54ylmz/blog-microservice-example/proto/article"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"

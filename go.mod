@@ -1,4 +1,4 @@
-module github.com/trk54ylmz/blog-ms
+module github.com/trk54ylmz/blog-microservice-example
 
 go 1.17
 

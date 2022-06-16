@@ -4,7 +4,7 @@ import (
 	"log"
 	"net"
 
-	"github.com/trk54ylmz/blog-ms/proto/article"
+	"github.com/trk54ylmz/blog-microservice-example/proto/article"
 	"google.golang.org/grpc"
 )
 

@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package article;
 
-option go_package = "github.com/trk54ylmz/blog-ms/proto/article";
+option go_package = "github.com/trk54ylmz/blog-microservice-example/proto/article";
 
 import "google/protobuf/empty.proto";
 

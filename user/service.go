@@ -3,7 +3,7 @@ package main
 import (
 	"context"
 
-	"github.com/trk54ylmz/blog-ms/proto/user"
+	"github.com/trk54ylmz/blog-microservice-example/proto/user"
 )
 
 // UserService is implementation of grpc service definition

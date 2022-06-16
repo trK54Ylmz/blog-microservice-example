@@ -1,0 +1,12 @@
+FROM python:3.9.13
+
+COPY . /blog
+
+WORKDIR /blog
+
+RUN apt-get -y update && apt-get install -y protobuf-compiler && \
+    pip install grpcio-tools && \
+    pip install -r front/requirements.txt && \
+    bash python.sh
+
+ENTRYPOINT python front/app.py

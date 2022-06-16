@@ -1,0 +1,16 @@
+FROM golang:1.18
+
+ENV GO111MODULE=on
+
+COPY . /blog
+
+WORKDIR /blog
+
+RUN apt-get -y update && apt-get install -y protobuf-compiler && \
+    go install google.golang.org/protobuf/cmd/protoc-gen-go@v1.28.0 && \
+    go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@v1.2.0 && \
+    bash go.sh 
+
+RUN go mod download && cd article && go build .
+
+ENTRYPOINT /blog/article/article

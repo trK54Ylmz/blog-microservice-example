@@ -1,10 +1,12 @@
+import os
 import grpc
 from proto import UserServiceStub, SignInRequest, SignInResponse
 
 
 class UserService:
     def __init__(self):
-        channel = grpc.insecure_channel('localhost:8001')
+        host = os.environ.get('USER_HOST', 'localhost:8001')
+        channel = grpc.insecure_channel(host)
 
         self.stub = UserServiceStub(channel)
 

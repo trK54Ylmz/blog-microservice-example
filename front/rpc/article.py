@@ -1,3 +1,4 @@
+import os
 import grpc
 from google.protobuf.empty_pb2 import Empty
 from proto import Article, ArticleCreateResponse, ArticleListResponse, ArticleServiceStub
@@ -5,7 +6,8 @@ from proto import Article, ArticleCreateResponse, ArticleListResponse, ArticleSe
 
 class ArticleService:
     def __init__(self):
-        channel = grpc.insecure_channel('localhost:8002')
+        host = os.environ.get('ARTICLE_HOST', 'localhost:8002')
+        channel = grpc.insecure_channel(host)
 
         self.stub = ArticleServiceStub(channel)
 

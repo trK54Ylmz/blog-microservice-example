@@ -7,3 +7,4 @@ A microservice application consists of a collection of small two services.
 * Go
 * Python 3
 * MongoDB
+* Protocol buffers

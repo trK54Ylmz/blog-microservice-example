@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"os"
 	"time"
 
 	"github.com/trk54ylmz/blog-microservice-example/proto/article"
@@ -22,9 +23,15 @@ type ArticleService struct {
 
 // NewArticleService will create article service with active database connection
 func NewArticleService() (*ArticleService, error) {
+	host := "localhost:27017"
+
+	if m, exists := os.LookupEnv("MONGO_HOST"); exists {
+		host = m
+	}
+
 	a := new(ArticleService)
 
-	opts := options.Client().ApplyURI("mongodb://localhost:27017")
+	opts := options.Client().ApplyURI("mongodb://" + host)
 
 	// Create context
 	ctx, cancel := context.WithTimeout(context.Background(), 20*time.Second)

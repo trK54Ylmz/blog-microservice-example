@@ -12,6 +12,7 @@ import (
 	"google.golang.org/protobuf/types/known/emptypb"
 )
 
+// ArticleService is implementation of grpc service definition
 type ArticleService struct {
 	Cancel context.CancelFunc
 

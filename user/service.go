@@ -6,6 +6,7 @@ import (
 	"github.com/trk54ylmz/blog-ms/proto/user"
 )
 
+// UserService is implementation of grpc service definition
 type UserService struct {
 }
 

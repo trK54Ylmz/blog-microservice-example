@@ -6,6 +6,7 @@ import (
 
 	"github.com/trk54ylmz/blog-ms/proto/article"
 	"go.mongodb.org/mongo-driver/bson"
+	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 	"google.golang.org/protobuf/types/known/emptypb"
@@ -49,15 +50,22 @@ func NewArticleService() (*ArticleService, error) {
 func (a *ArticleService) Create(ctx context.Context, c *article.Article) (*article.ArticleCreateResponse, error) {
 	r := new(article.ArticleCreateResponse)
 
-	record := bson.M{
-		"id":          c.Id,
-		"user_id":     c.UserId,
-		"title":       c.Title,
-		"description": c.Description,
+	// Generate object id from raw value
+	id, err := primitive.ObjectIDFromHex(c.Id)
+
+	if err != nil {
+		return nil, err
+	}
+
+	record := Article{
+		ID:          id,
+		UserId:      c.UserId,
+		Title:       c.Title,
+		Description: c.Description,
 	}
 
 	// Create new article
-	_, err := a.collection.InsertOne(ctx, record)
+	_, err = a.collection.InsertOne(ctx, record)
 
 	if err != nil {
 		return nil, err
@@ -85,7 +93,7 @@ func (a *ArticleService) List(ctx context.Context, _ *emptypb.Empty) (*article.A
 	var as []*article.Article
 
 	for ac.Next(ctx) {
-		var row bson.M
+		var row Article
 
 		// Decode result set to map
 		if err := ac.Decode(&row); err != nil {
@@ -93,10 +101,10 @@ func (a *ArticleService) List(ctx context.Context, _ *emptypb.Empty) (*article.A
 		}
 
 		a := new(article.Article)
-		a.Id = row["id"].(string)
-		a.Title = row["id"].(string)
-		a.Description = row["id"].(string)
-		a.UserId = row["user_id"].(int32)
+		a.Id = row.ID.Hex()
+		a.Title = row.Title
+		a.Description = row.Description
+		a.UserId = row.UserId
 
 		as = append(as, a)
 	}

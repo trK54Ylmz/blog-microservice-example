@@ -1,6 +1,8 @@
 import os
 import grpc
-from proto import UserServiceStub, SignInRequest, SignInResponse, SignUpRequest, SignUpResponse
+from proto.user import (
+    UserServiceStub, SignInRequest, SignInResponse, SignUpRequest, SignUpResponse
+)
 
 
 class UserService:

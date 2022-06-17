@@ -1,7 +1,9 @@
 import os
 import grpc
 from google.protobuf.empty_pb2 import Empty
-from proto import Article, ArticleCreateResponse, ArticleListResponse, ArticleServiceStub
+from proto.article import (
+    Article, ArticleCreateResponse, ArticleListResponse, ArticleServiceStub
+)
 
 
 class ArticleService:

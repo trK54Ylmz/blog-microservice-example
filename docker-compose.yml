@@ -24,8 +24,12 @@ services:
       dockerfile: user/dockerfile
     image: user:1.0
     container_name: user-service
+    environment:
+      MONGO_HOST: mongo:27017
     ports:
       - 8002:8002
+    depends_on:
+      - mongo
     volumes:
       - blog:/user
     networks:

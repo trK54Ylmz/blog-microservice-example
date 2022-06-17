@@ -2,54 +2,36 @@ package main
 
 import (
 	"context"
-	"os"
-	"time"
 
+	"github.com/trk54ylmz/blog-microservice-example/common"
 	"github.com/trk54ylmz/blog-microservice-example/proto/article"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"
-	"go.mongodb.org/mongo-driver/mongo/options"
 	"google.golang.org/protobuf/types/known/emptypb"
 )
 
 // ArticleService is implementation of grpc service definition
 type ArticleService struct {
-	Cancel context.CancelFunc
-
-	client     *mongo.Client
+	db         *common.Database
 	collection *mongo.Collection
 }
 
 // NewArticleService will create article service with active database connection
 func NewArticleService() (*ArticleService, error) {
-	host := "localhost:27017"
-
-	if m, exists := os.LookupEnv("MONGO_HOST"); exists {
-		host = m
-	}
-
 	a := new(ArticleService)
 
-	opts := options.Client().ApplyURI("mongodb://" + host)
-
-	// Create context
-	ctx, cancel := context.WithTimeout(context.Background(), 20*time.Second)
-
-	// Create database client
-	client, err := mongo.Connect(ctx, opts)
+	// Create new database connection
+	db, err := common.NewDatabase()
 
 	if err != nil {
-		defer cancel()
-
 		return nil, err
 	}
 
-	// Select database and collection
-	a.collection = client.Database("blog").Collection("article")
+	a.db = db
 
-	a.client = client
-	a.Cancel = cancel
+	// Select database and collection
+	a.collection = db.Client().Database("blog").Collection("article")
 
 	return a, nil
 }
@@ -72,7 +54,7 @@ func (a *ArticleService) Create(ctx context.Context, c *article.Article) (*artic
 
 	record := Article{
 		ID:          id,
-		UserId:      c.UserId,
+		UserID:      c.UserId,
 		Title:       c.Title,
 		Description: c.Description,
 	}
@@ -117,7 +99,7 @@ func (a *ArticleService) List(ctx context.Context, _ *emptypb.Empty) (*article.A
 		a.Id = row.ID.Hex()
 		a.Title = row.Title
 		a.Description = row.Description
-		a.UserId = row.UserId
+		a.UserId = row.UserID
 
 		as = append(as, a)
 	}

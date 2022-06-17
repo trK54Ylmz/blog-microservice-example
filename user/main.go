@@ -19,7 +19,18 @@ func main() {
 
 	server := grpc.NewServer()
 
-	user.RegisterUserServiceServer(server, new(UserService))
+	// Create new user service
+	u, err := NewUserService()
+
+	// Close database connection when stop
+	defer u.db.Close()
+
+	if err != nil {
+		log.Fatalf("user service error %s", err)
+	}
+
+	// Register user service implementation
+	user.RegisterUserServiceServer(server, u)
 
 	log.Println("user service starting at 8001")
 

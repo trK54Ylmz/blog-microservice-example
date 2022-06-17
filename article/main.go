@@ -24,7 +24,7 @@ func main() {
 	a, err := NewArticleService()
 
 	// Close database connection when stop
-	defer a.Cancel()
+	defer a.db.Close()
 
 	if err != nil {
 		log.Fatalf("article service error %s", err)

@@ -6,6 +6,30 @@ from server.message import Message
 user = Blueprint('user', app.name)
 
 
+@user.get('/sign-up')
+def sign_up():
+    """
+    Create new user account
+
+    :rtype: flask.Response
+    """
+    m = Message()
+
+    username = request.args.get('user')
+    password = request.args.get('pass')
+
+    us = UserService()
+
+    # sign up by using username and password
+    res = us.sign_up(username, password)
+
+    if res.status:
+        m.status = True
+        m.user_id = res.id
+
+    return m.json()
+
+
 @user.get('/sign-in')
 def sign_in():
     """

@@ -1,5 +1,5 @@
 from .article import Article, ArticleCreateResponse, ArticleListResponse, ArticleServiceStub
-from .user import UserServiceStub, SignInResponse, SignInRequest
+from .user import UserServiceStub, SignInResponse, SignInRequest, SignUpRequest, SignUpResponse
 
 __all__ = [
     'Article',
@@ -9,4 +9,6 @@ __all__ = [
     'UserServiceStub',
     'SignInResponse',
     'SignInRequest',
+    'SignUpRequest',
+    'SignUpResponse',
 ]
